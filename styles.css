@@ -1,0 +1,300 @@
+/* === Base Layout === */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  position: relative;
+  background: transparent;
+}
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 182, 193, 0.3); /* light pink with transparency */
+  pointer-events: none; /* allows clicking through */
+}
+
+.main-content {
+  z-index: 10;
+}
+
+
+/* === Carousel Container === */
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* === Card Style === */
+.card {
+  flex: 0 0 160px;
+  width: 160px; /* Force fixed width */
+  height: 250px; /* Ensure all cards are same height */
+  scroll-snap-align: start;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.card img {
+  width: 110px;
+  height: 110px;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  margin-top: 10px;
+}
+
+
+.card .card-title {
+  font-size: 1.1rem;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0.25rem 0 0.25rem 0; /* top/bottom margins small */
+}
+
+
+.card .card-text {
+  color: #6c757d; /* Bootstrap's text-muted gray */
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+
+/* === Quantity Buttons === */
+
+.quantity-controls {
+  display: flex;
+  flex-direction: row; /* ✅ horizontal layout */
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* space between buttons and count */
+}
+
+.quantity-controls button {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #f48e9d;
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.quantity-controls button:hover {
+  background-color: #e86179;
+}
+
+.quantity-controls button:focus {
+  outline: none;
+  box-shadow: none;
+  background-color: #e86179;
+}
+
+/* === Wrap Button === */
+.btn-outline-pink {
+  color: #f48e9d;
+  border: 1.5px solid #f48e9d;
+  background-color: transparent;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-outline-pink:hover {
+  background-color: #f48e9d;
+  color: white;
+  border-color: #f48e9d;
+}
+
+
+/* === Bouquet Preview === */
+#bouquet-preview {
+  height: 260px;
+  width: 100%;
+  max-width: 300px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === Flower Images in Preview === */
+#bouquet-preview img {
+  position: absolute;
+  width: 100px;
+}
+
+/* === Wrapping Image Layers === */
+.wrap-back,
+.wrap-front {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+
+.wrap-back {
+  z-index: 0;
+}
+
+.wrap-front {
+  z-index: 50;
+}
+
+.z-0 {
+  z-index: 0 !important;
+  position: absolute; /* position needed for z-index to work */
+}
+
+.z-50 {
+  z-index: 50 !important;
+  position: absolute;
+}
+
+
+/* === Selected Wrapping Highlight === */
+.wrap-selected {
+  border: 3px solid #f48e9d;
+  box-shadow: 0 0 10px rgba(244, 142, 157, 0.6);
+  border-radius: 12px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* === Free Delivery Notification === */
+#delivery-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  max-width: 400px;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  text-align: left;
+  padding-bottom: 50px;
+}
+
+#delivery-popup.show {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+#delivery-popup button {
+  margin-top: 1rem;
+}
+#delivery-close-btn {
+  display: block;              /* Make it a block element so it takes full width */
+  width: 100%;                 /* Full width of the popup bottom */
+  padding: 10px 0;             /* Vertical padding for clickable size */
+  background-color: #ffb6c1;   /* Baby pink background color */
+  color: white;                /* White text color */
+  border: none;                /* Remove default border */
+  border-radius: 0 0 8px 8px; /* Rounded corners only at bottom */
+  font-weight: bold;           /* Bold text */
+  cursor: pointer;             /* Pointer cursor on hover */
+  text-align: center;          /* Center the text */
+  position: absolute;          /* Position at the bottom of popup */
+  bottom: 0;
+  left: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -55%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* === Total Cost Section === */
+#total-cost {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #007bff;
+  text-align: center;
+}
+
+/* === Bouquet Info Section === */
+#bouquet-info {
+  background: rgba(255, 182, 193, 1); /* Light pink with slight transparency */
+  border: 1px solid rgba(255, 105, 180, 0.3); /* Hot pink-ish soft border */
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2); /* Pink glow shadow */
+  border-radius: 1rem; /* Large rounded corners */
+  backdrop-filter: blur(4px); /* Optional for glassy effect */
+  transition: all 0.3s ease-in-out;
+}
+
+#bouquet-info h5 {
+  color: #f48e9d; /* Bootstrap pink */
+  font-weight: bold;
+}
+
+#bouquet-info ul,
+#bouquet-info p {
+  color: #6c757d; /* Bootstrap secondary text */
+  font-size: 0.95rem;
+}
+
+/* === Reset Button === */
+#reset-btn {
+  background-color: #b30059;  /* dark pink */
+  color: white;
+  border: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 50px;
+  padding: 15px;
+  transition: background-color 0.3s ease;
+}
+
+
+#order-btn {
+  font-size: 1.2rem;
+}
+
+#delivery-btn {
+  font-size: 1.2rem;
+  background-color: #ffb1bd;
+  border-color: #b30059;
+  color: #8f0047;
+}
