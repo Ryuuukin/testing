@@ -340,17 +340,21 @@ h2 {
 }
 
 #logo-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 1rem 0;
-  position: relative;
-  z-index: 10;
+  width: 150px; /* or whatever width you are using */
+  display: block;
+  margin: 0 auto;
 }
 
 #logo {
   height: 85px;
   object-fit: contain;
+}
+
+.logo-line {
+  margin: 4px auto 0;
+  border: none;
+  border-top: 2px solid #000; /* line thickness and color */
+  width: 100%;
 }
 
 
