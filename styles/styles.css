@@ -7,6 +7,33 @@ body {
   background: transparent;
 }
 
+button:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+/*language modal buttons */
+.btn-lang-ru {
+  background-color: #94304b;
+  color: white;
+  border: none;
+  font-size: 1.3rem;
+}
+
+.btn-lang-kk {
+  background-color: #94304b;
+  color: rgb(255, 255, 255);
+  border: none;
+  font-size: 1.3rem;
+}
+
+
+
+
+h2 {
+  color: #94304b;
+}
+
 .background-overlay {
   position: fixed;
   top: 0;
@@ -14,7 +41,6 @@ body {
   z-index: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 182, 193, 0.3); /* light pink with transparency */
   pointer-events: none; /* allows clicking through */
 }
 
@@ -29,9 +55,12 @@ body {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   gap: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 10px;
+  padding-top: 20px;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  background-color: #94304b;
+  margin-bottom: 25px;
 }
 
 .carousel-container::-webkit-scrollbar {
@@ -53,7 +82,6 @@ body {
 
 
 .card img {
-  width: 110px;
   height: 110px;
   display: block;
   margin: 0 auto;
@@ -65,7 +93,7 @@ body {
 
 
 .card .card-title {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   line-height: 1.2;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -77,6 +105,15 @@ body {
   color: #6c757d; /* Bootstrap's text-muted gray */
   font-weight: 500;
   margin-bottom: 0.5rem;
+}
+
+.card .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* center vertically */
+  padding: 0.75rem;
+  flex-grow: 1;
 }
 
 
@@ -94,7 +131,7 @@ body {
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background-color: #f48e9d;
+  background-color: #94304b;
   color: white;
   border: none;
   font-weight: bold;
@@ -105,29 +142,13 @@ body {
   transition: background-color 0.2s ease;
 }
 
-.quantity-controls button:hover {
-  background-color: #e86179;
-}
-
-.quantity-controls button:focus {
-  outline: none;
-  box-shadow: none;
-  background-color: #e86179;
-}
-
 /* === Wrap Button === */
 .btn-outline-pink {
-  color: #f48e9d;
-  border: 1.5px solid #f48e9d;
+  color: #94304b;
+  border: 1.5px solid #94304b;
   background-color: transparent;
   font-weight: 500;
   transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.btn-outline-pink:hover {
-  background-color: #f48e9d;
-  color: white;
-  border-color: #f48e9d;
 }
 
 
@@ -174,7 +195,7 @@ body {
 
 .z-0 {
   z-index: 0 !important;
-  position: absolute; /* position needed for z-index to work */
+  position: absolute;
 }
 
 .z-50 {
@@ -185,7 +206,7 @@ body {
 
 /* === Selected Wrapping Highlight === */
 .wrap-selected {
-  border: 3px solid #f48e9d;
+  border: 3px solid #f9bac4;
   box-shadow: 0 0 10px rgba(244, 142, 157, 0.6);
   border-radius: 12px;
   transition: border 0.3s ease, box-shadow 0.3s ease;
@@ -221,7 +242,7 @@ body {
   display: block;              /* Make it a block element so it takes full width */
   width: 100%;                 /* Full width of the popup bottom */
   padding: 10px 0;             /* Vertical padding for clickable size */
-  background-color: #ffb6c1;   /* Baby pink background color */
+  background-color: #94304b;   /* Baby pink background color */
   color: white;                /* White text color */
   border: none;                /* Remove default border */
   border-radius: 0 0 8px 8px; /* Rounded corners only at bottom */
@@ -248,7 +269,7 @@ body {
 #total-cost {
   font-weight: bold;
   font-size: 1.25rem;
-  color: #007bff;
+  color: #94304b;
   text-align: center;
 }
 
@@ -263,7 +284,7 @@ body {
 }
 
 #bouquet-info h5 {
-  color: #f48e9d; /* Bootstrap pink */
+  color: #94304b; /* Bootstrap pink */
   font-weight: bold;
 }
 
@@ -275,26 +296,61 @@ body {
 
 /* === Reset Button === */
 #reset-btn {
-  background-color: #b30059;  /* dark pink */
+  background-color: #94304b;  /* dark pink */
   color: white;
   border: none;
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   cursor: pointer;
   user-select: none;
   border-radius: 50px;
   padding: 15px;
   transition: background-color 0.3s ease;
+  width: 200px;
+}
+
+#letter-container {
+  margin: 1rem auto;
+  width: 90%;
+  max-width: 400px;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+#message-box {
+  border-radius: 12px;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid #ddd;
+  resize: none;
 }
 
 
 #order-btn {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  width: 390px;
 }
 
 #delivery-btn {
-  font-size: 1.2rem;
-  background-color: #ffb1bd;
-  border-color: #b30059;
-  color: #8f0047;
+  font-size: 1.3rem;
+  width: 390px;
+  background-color: #94304b;
+  border-color: #94304b;
+  color: #ffffff;
 }
+
+#logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  position: relative;
+  z-index: 10;
+}
+
+#logo {
+  height: 70px;
+  object-fit: contain;
+}
+
+

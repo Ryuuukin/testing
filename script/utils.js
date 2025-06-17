@@ -5,10 +5,11 @@ function changeQty(id, diff) {
   if (!flowerQuantities[id]) flowerQuantities[id] = 0;
   flowerQuantities[id] = Math.max(0, flowerQuantities[id] + diff);
   document.getElementById(`${id}-qty`).innerText = flowerQuantities[id];
-  const wrapObj = wrappings.find(w => w.id === selectedWrap);
+
+  const wrapObj = wrapData.find(w => w.id === selectedWrap);
   renderBouquetPreview(flowerQuantities, wrapObj?.image || null);
   updateTotalCostDisplay();
-  updateBouquetInfo()
+  updateBouquetInfo();
 }
 
 function chunkArray(arr, size) {
@@ -21,12 +22,12 @@ function chunkArray(arr, size) {
 
 function selectWrap(id) {
   selectedWrap = id;
-  renderWrappings(); // refresh button state
+  renderWrappings(); // refresh selection UI
 
-  const wrapObj = wrappings.find(w => w.id === selectedWrap);
+  const wrapObj = wrapData.find(w => w.id === selectedWrap);
   renderBouquetPreview(flowerQuantities, wrapObj?.image || null);
   updateTotalCostDisplay();
-  updateBouquetInfo()
+  updateBouquetInfo();
 }
 
 function generateMessage() {
@@ -35,12 +36,13 @@ function generateMessage() {
   let total = 0;
   let hasFlowers = false;
 
-  flowers.forEach(f => {
+  flowerData.forEach(f => {
     const qty = flowerQuantities[f.id] || 0;
     if (qty > 0) {
       hasFlowers = true;
       const cost = qty * f.price;
-      msg += `🎀 ${f.name[currentLang]} x${qty} = ${cost} ₸\n`;
+      const name = f[`name_${currentLang}`] || f.name?.[currentLang] || f.name;
+      msg += `🎀 ${name} x${qty} = ${cost} ₸\n`;
       total += cost;
     }
   });
@@ -50,31 +52,33 @@ function generateMessage() {
     return null;
   }
 
-  const wrap = wrappings.find(w => w.id === selectedWrap) || wrappings[0];
-  msg += `${t.wrap}: ${wrap.name[currentLang]} (${wrap.price} ₸)\n`;
-  total += wrap.price;
+  const wrap = wrapData.find(w => w.id === selectedWrap) || { price: 0, name_ru: 'Без упаковки', name_kk: 'Ораусыз' };
+  const wrapName = wrap[`name_${currentLang}`] || wrap.name?.[currentLang] || wrap.name;
+  msg += `${t.wrap}: ${wrapName} (${wrap.price} ₸)\n`;
+  total += Number(wrap.price);
   msg += `💰 ${t.total}: ${total} ₸`;
+
+  const letterText = document.getElementById("message-box").value.trim();
+  if (letterText) {
+    msg += `\n\n${translations[currentLang].letterInWhatsapp}: ${letterText}`;
+  }
 
   return encodeURIComponent(msg);
 }
 
-
 function updateTotalCostDisplay() {
   let total = 0;
 
-  // Sum flower costs
-  flowers.forEach(f => {
+  flowerData.forEach(f => {
     const qty = flowerQuantities[f.id] || 0;
-    total += qty * f.price;
+    total += qty * Number(f.price);
   });
 
-  // Add wrap cost
-  const wrap = wrappings.find(w => w.id === selectedWrap);
+  const wrap = wrapData.find(w => w.id === selectedWrap);
   if (wrap) {
-    total += wrap.price;
+    total += Number(wrap.price);
   }
 
-  // Update display
   const el = document.getElementById("total-cost");
   el.innerText = `${translations[currentLang].total}: ${total} ₸`;
 }

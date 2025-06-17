@@ -17,7 +17,8 @@ function renderBouquetPreview(selectedFlowers, wrapImageUrl) {
 
   const flowerImages = [];
   Object.entries(selectedFlowers).forEach(([id, qty]) => {
-    const flower = flowers.find(f => f.id === id);
+    const flower = flowerData.find(f => f.id === id);
+    if (!flower) return;
     for (let i = 0; i < qty; i++) {
       flowerImages.push(flower.image);
     }

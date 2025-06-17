@@ -3,7 +3,7 @@ function resetBouquet() {
   selectedWrap = null;
 
   // Reset UI
-  flowers.forEach(f => {
+  flowerData.forEach(f => {
     const qtyEl = document.getElementById(`${f.id}-qty`);
     if (qtyEl) qtyEl.innerText = "0";
   });

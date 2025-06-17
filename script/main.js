@@ -11,13 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("delivery-btn").addEventListener("click", () => {
-    const alert = document.createElement("div");
-    alert.className = "alert alert-info delivery-alert";
-    alert.innerText = msg;
-    document.body.appendChild(alert);
-    setTimeout(() => alert.remove(), 4000);
+    showDeliveryPopup();
   });
 
   autoScrollCarousel("flower-scroll", 0.5);
   autoScrollCarousel("wrap-scroll", 0.5);
 });
+

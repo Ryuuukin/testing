@@ -6,20 +6,20 @@ function updateBouquetInfo() {
   listEl.innerHTML = "";
   let hasFlowers = false;
 
-  flowers.forEach(f => {
+  flowerData.forEach(f => {
     const qty = flowerQuantities[f.id] || 0;
     if (qty > 0) {
       hasFlowers = true;
-      const cost = qty * f.price;
+      const cost = qty * Number(f.price);
       const li = document.createElement("li");
-      li.innerText = `${f.name.ru} х ${qty} = ${cost} ₸`;  // change `.ru` to `[currentLang]` if needed
+      const name = f[`name_${currentLang}`] || f.name?.[currentLang] || f.name_ru || "-";
+      li.innerText = `${name} х ${qty} = ${cost} ₸`;
       listEl.appendChild(li);
     }
   });
 
-  const wrap = wrappings.find(w => w.id === selectedWrap);
-  wrapEl.innerText = wrap ? `${wrap.name.ru}` : "";
+  const wrap = wrapData.find(w => w.id === selectedWrap);
+  wrapEl.innerText = wrap?.[`name_${currentLang}`] || wrap?.name?.[currentLang] || wrap?.name_ru || "";
 
-  // Show or hide block
   infoEl.classList.toggle("d-none", !hasFlowers);
 }
