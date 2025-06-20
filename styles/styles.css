@@ -70,8 +70,8 @@ h2 {
 /* === Card Style === */
 .card {
   flex: 0 0 160px;
-  width: 160px; /* Force fixed width */
-  height: 250px; /* Ensure all cards are same height */
+  width: 130px; /* Force fixed width */
+  height: 210px; /* Ensure all cards are same height */
   scroll-snap-align: start;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
@@ -128,8 +128,8 @@ h2 {
 }
 
 .quantity-controls button {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background-color: #94304b;
   color: white;
